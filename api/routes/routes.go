@@ -8,5 +8,7 @@ import (
 
 func SetupRoute(cfg *config.Config, db *gorm.DB, rg *gin.RouterGroup) {
 	UserRoute(cfg, db, rg)
+	AuthRoute(cfg, db, rg)
+	BotRoute(cfg, db, rg)
 
 }

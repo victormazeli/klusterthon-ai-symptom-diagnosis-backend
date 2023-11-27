@@ -13,12 +13,16 @@ type ApplicationConfig struct {
 
 type Config struct {
 	Server struct {
-		Port string
-		Host string
+		Port   string
+		Host   string
+		JwtKey string
 	}
 	Database struct {
 		URL  string
 		Name string
+	}
+	OpenAI struct {
+		Key string
 	}
 }
 

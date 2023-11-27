@@ -4,12 +4,11 @@ import (
 	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/kamva/mgm/v3"
 	"github.com/victormazeli/klusterthon-ai-symptom-diagnosis-backend/api/middlewares"
 	"github.com/victormazeli/klusterthon-ai-symptom-diagnosis-backend/api/routes"
 	"github.com/victormazeli/klusterthon-ai-symptom-diagnosis-backend/internal/config"
-	"github.com/victormazeli/klusterthon-ai-symptom-diagnosis-backend/internal/database/models"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
 	"net/http"
 	"os"
@@ -25,18 +24,12 @@ func main() {
 	cfg := config.LoadEnvironmentConfig()
 
 	// Initialize Database Connection
-	db, err := gorm.Open(postgres.Open(cfg.Database.URL), &gorm.Config{})
+	err := mgm.SetDefaultConfig(nil, cfg.Database.Name, options.Client().ApplyURI(cfg.Database.URL))
 
 	if err != nil {
-		log.Fatal("Cannot connect to Database")
+		log.Fatal("Error occurred connecting to database!")
 	}
-
-	// Migrate Tables
-	err = db.AutoMigrate(&models.User{})
-
-	if err != nil {
-		log.Fatalf(err.Error())
-	}
+	log.Print("Connected to database!")
 
 	port := cfg.Server.Port
 	if port == "" {

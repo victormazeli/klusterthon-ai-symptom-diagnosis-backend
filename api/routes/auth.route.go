@@ -7,11 +7,12 @@ import (
 	"gorm.io/gorm"
 )
 
-func UserRoute(cfg *config.Config, db *gorm.DB, r *gin.RouterGroup) {
-	userHandler := handlers.UserHandler{
+func AuthRoute(cfg *config.Config, db *gorm.DB, r *gin.RouterGroup) {
+	authHandler := handlers.AuthHandler{
 		Cfg: cfg,
 		Db:  db,
 	}
 
-	r.GET("/:id", userHandler.GetUser)
+	r.POST("/login", authHandler.Login)
+	r.POST("/register", authHandler.Register)
 }

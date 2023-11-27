@@ -2,7 +2,7 @@ package middlewares
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/victormazeli/klusterthon-ai-symptom-diagnosis-backend/pkg/ApiResponse"
+	"github.com/victormazeli/klusterthon-ai-symptom-diagnosis-backend/internal/ApiResponse"
 )
 
 func NotFound() gin.HandlerFunc {
